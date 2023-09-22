@@ -1,0 +1,82 @@
+
+/* --- Multicolumn --- */
+[value="multicolumn"]:checked ~ main {
+    display: block;
+    columns: 12rem;
+    gap: 1rem;
+}
+[value="multicolumn"]:checked ~ main figure {
+    margin-bottom: 1rem;
+    break-inside: avoid;
+}
+
+/* --- Flexbox, column direction --- */
+[value="flexbox2"]:checked ~ main {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    max-height: 200vh;
+    justify-content: start;
+    gap: 1rem;
+}
+[value="flexbox2"]:checked ~ main figure {
+    width: 100%;
+    max-width: 16rem;
+}
+/* --- The rest of the styling --- */
+* {
+    box-sizing: border-box;
+}
+body {
+    font-family: avenir, roboto, helvetica, sans-serif;
+    margin: 2rem calc(2vw + 2rem);
+}
+main {
+    margin: 2rem 0;
+}
+img {
+    width: 100%;
+    display: block;
+    border-radius: 0 0 1rem 1rem;
+}
+figure {
+    margin: 0;
+}
+figcaption {
+    padding: 0.5rem 1rem 0.4rem;
+    background: #ddd;
+    color: #333;
+    border-radius: 1rem 1rem 0 0;
+    text-align: end;
+}
+h1 {
+    margin: 0;
+}
+h2 {
+    margin: 0;
+}
+h3 {
+    margin: 0.5rem 0 0;
+    font-size: 1rem;
+}
+aside {
+    margin: 6rem 0;
+    max-width: 80ch;
+    padding: 2rem 2rem 1rem;
+    border: 1px solid #000;
+}
+p {
+    margin: 1rem 0;
+    color: #444;
+    font-weight: 400;
+}
+code {
+    font-size: 1.07rem;
+    color: #d45b2c;
+}
+input {
+    margin: 0;
+}
+label {
+    margin: 0 1.1rem 0 0.1rem;
+}
