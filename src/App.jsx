@@ -3,6 +3,7 @@ import {
   RouterProvider,
   createBrowserRouter,
   createRoutesFromElements,
+  useLocation,
 } from "react-router-dom";
 import RootLayout from "./layouts/RootLayout";
 import Home from "./pages/Home";
@@ -11,6 +12,8 @@ import MealLayout from "./layouts/MealLayout";
 import MealDetail from "./pages/MealDetail";
 import Whitelist from "./pages/Whitelist";
 import { Toaster } from "react-hot-toast";
+import { AnimatePresence } from "framer-motion";
+import SearchPage from "./pages/SearchPage";
 
 const App = () => {
   const router = createBrowserRouter(
@@ -20,6 +23,7 @@ const App = () => {
           <Route index element={<Home />} />
           <Route path="meal/:id" element={<MealDetail />} />
           <Route path="whitelist" element={<Whitelist />} />
+          <Route path="search" element={<SearchPage />} />
         </Route>
       </>
     )
@@ -28,7 +32,9 @@ const App = () => {
   return (
     <>
       <Toaster position="top-right" />
-      <RouterProvider router={router} />
+      <AnimatePresence mode="wait">
+        <RouterProvider router={router} />
+      </AnimatePresence>
     </>
   );
 };

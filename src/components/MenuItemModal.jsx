@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
   setSelectedFoodCategory,
@@ -8,6 +8,7 @@ import {
 import { scrollToTop } from "../shared/help";
 
 const MenuItemModal = ({ categories, isLoading, text }) => {
+  const { isDark } = useSelector((state) => state.mealSlice);
   const [isHover, setIsHover] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -45,7 +46,11 @@ const MenuItemModal = ({ categories, isLoading, text }) => {
           {text}
         </button>
         {isHover && (
-          <div className="absolute shadow-sm-1 z-40 top-[38px] -right-5 md:right-0 p-2 w-[200px] bg-glass-1 rounded-lg //  ">
+          <div
+            className={`absolute shadow-sm-1 z-40 top-[38px] -right-[100px] md:right-0 p-2 w-[200px] rounded-lg ${
+              isDark ? "bg-black bg-opacity-90 backdrop-blur-sm" : "bg-glass-1"
+            }`}
+          >
             <ul className="flex flex-col max-h-[60vh] modal-scroll overflow-auto p-2">
               {categories?.map((el, index) => (
                 <li

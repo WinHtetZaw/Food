@@ -1,11 +1,13 @@
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const BackBtn = () => {
+  const { isDark } = useSelector((state) => state.mealSlice);
   const navigate = useNavigate();
   return (
     <button
       onClick={() => navigate(-1)}
-      className=" py-4 px-1 rounded active:scale-90 transition duration-200 bg-white bg-opacity-60 hover:bg-opacity-80"
+      className={`py-4 px-1 rounded active:scale-90 transition duration-200 ${isDark ? "bg-black" : "bg-white"}  bg-opacity-60 hover:bg-opacity-80`}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

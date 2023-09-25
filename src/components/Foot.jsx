@@ -1,33 +1,33 @@
 import { TbBrandGithubFilled } from "react-icons/tb";
 import { RiFacebookFill } from "react-icons/ri";
 import { AiOutlineTwitter, AiOutlineInstagram } from "react-icons/ai";
-import { BiLogoTelegram } from "react-icons/bi"
+import { BiLogoTelegram } from "react-icons/bi";
+import { useSelector } from "react-redux";
 
 const Foot = () => {
+  const { isDark } = useSelector((state) => state.mealSlice);
   return (
-    <div className=" bg-glass-1 w-full flex flex-col items-center justify-center py-16">
+    <div
+      className={`${
+        isDark ? " bg-black bg-opacity-50 backdrop-blur-sm" : "bg-glass-1"
+      }  w-full flex flex-col items-center justify-center py-16`}
+    >
       <p className=" flex items-center text-sm sm:text-base">
         <span className=" text-2xl font-mono mr-2">&copy; </span>Win Htet Zaw |
         All rights Reserved
       </p>
       <section className="flex gap-5 items-center h-[50px]">
-        <div
-          className="relative flex items-center justify-center group"
-        >
+        <div className="relative flex items-center justify-center group">
           <span className="logo-border"></span>
           <TbBrandGithubFilled className="logo " />
         </div>
 
-        <div
-          className="relative flex items-center justify-center group"
-        >
+        <div className="relative flex items-center justify-center group">
           <span className="logo-border"></span>
           <RiFacebookFill className="logo " />
         </div>
 
-        <div
-          className="relative flex items-center justify-center group"
-        >
+        <div className="relative flex items-center justify-center group">
           <span className="logo-border"></span>
           <BiLogoTelegram className="logo " />
         </div>

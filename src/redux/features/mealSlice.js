@@ -6,11 +6,15 @@ const initialState = {
   selectedKind: "c",
   searchWord: "",
   whitelists: [],
+  isDark: false,
 };
 
-let lists;
 if (getLocalStorage("whitelists")) {
   initialState.whitelists = getLocalStorage("whitelists");
+}
+
+if (getLocalStorage("f-dark")) {
+  initialState.isDark = getLocalStorage("f-dark");
 }
 
 export const mealSlice = createSlice({
@@ -44,6 +48,10 @@ export const mealSlice = createSlice({
       // if (payload.length === 0) return;
       state.searchWord = payload;
     },
+    setIsDark: (state, { payload }) => {
+      state.isDark = payload;
+      setLocalStorage("f-dark", state.isDark);
+    },
   },
 });
 
@@ -52,7 +60,8 @@ export const {
   setSelectedKind,
   setWhitelists,
   removeWhitelists,
-  setSearchWord
+  setSearchWord,
+  setIsDark,
 } = mealSlice.actions;
 
 export default mealSlice.reducer;

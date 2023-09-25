@@ -1,22 +1,26 @@
 import { useRef, useState } from "react";
 import { BsSearch } from "react-icons/bs";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setSearchWord } from "../redux/features/mealSlice";
+import { useNavigate } from "react-router-dom";
 // import "../css/inputSearch.css"
 
 const Search = () => {
+  const { isDark } = useSelector((state) => state.mealSlice);
   const [isFocused, setIsFocused] = useState(false);
   const [search, setSearch] = useState("");
   const inputRef = useRef(null);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     if (search.length === 0) {
-      dispatch(setSearchWord(''));
+      dispatch(setSearchWord(""));
       return;
     }
     dispatch(setSearchWord(search));
+    navigate("/search");
   };
 
   return (
@@ -26,8 +30,10 @@ const Search = () => {
           isFocused && "ring-2"
         } ring-inset ring-orange-500 transition-all duration-[3s] flex items-center justify-center`}
       > */}
-       <form
-        className={` w-[180px] sm:w-[230px] py-1 border-b-2 border-black border-opacity-40 flex items-center justify-center`}
+      <form
+        className={` w-[180px] sm:w-[230px] py-1 border-b-2 ${
+          isDark ? "border-white" : "border-black"
+        }  border-opacity-40 flex items-center justify-center`}
       >
         <input
           value={search}
@@ -71,7 +77,9 @@ const Search = () => {
         )}
         <button
           onClick={handleSearchSubmit}
-          className=" border-l-2 pl-2 border-black border-opacity-40"
+          className={`border-l-2 pl-2 ${
+            isDark ? "border-white" : "border-black"
+          }  border-opacity-40`}
         >
           <BsSearch className="hover:scale-110 active:scale-90" />
         </button>

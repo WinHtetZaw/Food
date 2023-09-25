@@ -2,10 +2,8 @@ import { useSelector } from "react-redux";
 import {
   useGetCategoriesFilterByAreaQuery,
   useGetCategoriesFilterByFoodQuery,
-  useGetSearchItemsQuery,
 } from "../redux/services/mealApi";
 import ItemCard from "../components/ItemCard";
-import { randomNum } from "../shared/help";
 import { useEffect, useState } from "react";
 import Loading from "../components/Loading";
 
@@ -24,52 +22,34 @@ const Home = () => {
     status: statusArea,
   } = useGetCategoriesFilterByAreaQuery(selectedFoodCategory);
 
-  const { searchWord } = useSelector((state) => state.mealSlice);
-
-  const {
-    data: dataSearch,
-    isLoading: isLoadingSearch,
-    isSuccess: isSuccessSearch,
-    status: statusSearch,
-  } = useGetSearchItemsQuery(searchWord);
-
   const foodCategories = data?.meals;
   const foodCategoriesByArea = dataArea?.meals;
-  const searchLists = dataSearch?.meals;
-  // const foodCategories =  data?.meals
-
-  (searchLists?.length > 0 &&
-    searchWord.length > 0 &&
-    statusSearch !== "pending") > 0 && console.log(searchLists);
 
   useEffect(() => {
-    if (
-      searchLists?.length > 0 &&
-      searchWord.length > 0 &&
-      statusSearch !== "pending"
-    ) {
-      setLists(searchLists);
-    } else {
-      switch (selectedKind) {
-        case "c":
-          {
-            setLists(foodCategories);
-          }
-          break;
+    // if (
+    //   searchLists?.length > 0 &&
+    //   searchWord.length > 0 &&
+    //   statusSearch !== "pending"
+    // ) {
+    //   setLists(searchLists);
+    // } else {
+    // }
+    switch (selectedKind) {
+      case "c":
+        {
+          setLists(foodCategories);
+        }
+        break;
 
-        case "a":
-          {
-            setLists(foodCategoriesByArea);
-          }
-          break;
-      }
+      case "a":
+        {
+          setLists(foodCategoriesByArea);
+        }
+        break;
     }
-  }, [foodCategories, foodCategoriesByArea, selectedKind, searchLists]);
+  }, [foodCategories, foodCategoriesByArea, selectedKind]);
 
   const listsLooping = lists?.map((el, index) => {
-    // const randomNumber = randomNum(1, 5);
-    // const randomHandOnTime = randomNum(10, 40);
-    // const randomTotalTime = randomNum(10, 20) + randomHandOnTime;
     return (
       <div className=" w-fit h-fit" key={index}>
         <ItemCard {...el} />
@@ -81,8 +61,6 @@ const Home = () => {
     <>
       {isLoading ||
       isLoadingArea ||
-      isLoadingSearch ||
-      statusSearch === "pending" ||
       status === "pending" ||
       statusArea === "pending" ? (
         <div className="flex items-center justify-center height-1 w-full">
@@ -92,12 +70,11 @@ const Home = () => {
         </div>
       ) : (
         <div className=" sm:my-10">
-          <div className="max-md:p-5 p-5">
-            <h2 className="text-xl uppercase font-light mb-5 sm:mb-10">
-              {searchWord.length > 0 ? searchWord :  selectedFoodCategory}
+          <div className="max-md:p-3 p-5">
+            <h2 className="text-xl uppercase font-light">
+              {selectedFoodCategory}
             </h2>
-            {/* {isSuccess && <ItemCard lists={foodCategories[0]} />} */}
-            <div className=" flex flex-wrap justify-center gap-x-20 gap-y-10 md:gap-y-20">
+            <div className=" w-full py-10 overflow-hidden flex flex-wrap justify-center gap-x-20 gap-y-10 md:gap-y-20">
               {(isSuccess || isSuccessArea) && listsLooping}
             </div>
           </div>

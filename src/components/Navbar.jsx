@@ -7,13 +7,14 @@ import MenuItemModal from "./MenuItemModal";
 import { useEffect, useState } from "react";
 import Search from "./Search";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
-import { BsFillSunFill, BsFillMoonFill } from "react-icons/bs";
 import { AnimatePresence, motion } from "framer-motion";
-import { Switch } from "@nextui-org/react";
+import Swiftbtn from "./Swiftbtn";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const [isMenuOpened, setIsMenuOpened] = useState(false);
   const { data, isLoading } = useGetCategoryListsQuery();
+  const { isDark } = useSelector((state) => state.mealSlice);
   const { data: countryData, isLoading: isLoadingCountry } =
     useGetCountryCategoriesQuery();
 
@@ -33,7 +34,11 @@ const Navbar = () => {
     <>
       <nav
         // style={{ background: "linear-gradient(135deg, #FFA500, #FF6347)", }}
-        className=" sticky z-50 bg-glass-1 top-0 px-3 h-[80px] "
+        className={`sticky z-50 ${
+          isDark
+            ? "bg-black bg-opacity-50 backdrop-blur-sm"
+            : "text-black bg-glass-1"
+        }  top-0 px-3 h-[80px]`}
       >
         <div className="flex justify-between items-center w-full h-full">
           <Link to={"/"}>
@@ -65,23 +70,17 @@ const Navbar = () => {
             </Link>
           </ul>
 
-          <Switch
-            // defaultSelected
-            className="text-orange"
-            size="md"
-            color="warning"
-            startContent={<BsFillMoonFill />}
-            endContent={<BsFillSunFill />}
-          >
-            Dark mode
-          </Switch>
-          
+          <Swiftbtn />
 
           <div
             onClick={() => setIsMenuOpened(!isMenuOpened)}
-            className="sm:hidden p-3 bg-gray-300 rounded-full"
+            className={`sm:hidden p-3 ${
+              isDark ? "bg-slate-800" : "bg-slate-300"
+            }  rounded-full`}
           >
-            <HiOutlineMenuAlt3 />
+            <HiOutlineMenuAlt3
+              className={`${isDark ? "text-white" : "text-black"}`}
+            />
           </div>
         </div>
       </nav>
@@ -96,7 +95,9 @@ const Navbar = () => {
             }}
             exit={{ scaleY: 0, transition: { duration: 0.3, ease: "easeIn" } }}
             style={{ transformOrigin: "top" }}
-            className=" sticky z-50 top-[80px] flex items-center justify-between sm:hidden w-full h-[50px] bg-glass-2 px-3"
+            className={`sticky z-40 top-[80px] flex items-center justify-between sm:hidden w-full h-[50px] ${
+              isDark ? "bg-black bg-opacity-40 backdrop-blur-sm" : "bg-glass-2"
+            }  px-3`}
           >
             <Search />
             <Link to={"/whitelist"}>
