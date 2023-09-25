@@ -9,12 +9,16 @@ const initialState = {
   isDark: false,
 };
 
-if (getLocalStorage("whitelists")) {
-  initialState.whitelists = getLocalStorage("whitelists");
+if (getLocalStorage("f-whitelists")) {
+  initialState.whitelists = getLocalStorage("f-whitelists");
 }
 
 if (getLocalStorage("f-dark")) {
   initialState.isDark = getLocalStorage("f-dark");
+}
+
+if (getLocalStorage("f-search")) {
+  initialState.searchWord = getLocalStorage("f-search");
 }
 
 export const mealSlice = createSlice({
@@ -35,18 +39,18 @@ export const mealSlice = createSlice({
         state.whitelists = [...state.whitelists, payload];
       }
 
-      setLocalStorage("whitelists", state.whitelists);
+      setLocalStorage("f-whitelists", state.whitelists);
     },
     removeWhitelists: (state, { payload }) => {
       const items = state.whitelists.filter(
         (el) => el.idMeal !== payload.idMeal
       );
       state.whitelists = items;
-      setLocalStorage("whitelists", state.whitelists);
+      setLocalStorage("f-whitelists", state.whitelists);
     },
     setSearchWord: (state, { payload }) => {
-      // if (payload.length === 0) return;
       state.searchWord = payload;
+      setLocalStorage("f-search", state.searchWord);
     },
     setIsDark: (state, { payload }) => {
       state.isDark = payload;
